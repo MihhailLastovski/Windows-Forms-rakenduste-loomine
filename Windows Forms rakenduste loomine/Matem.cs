@@ -14,7 +14,26 @@ namespace Windows_Forms_rakenduste_loomine
     {
         public Matem()
         {
-            InitializeComponent();
+            TableLayoutPanel tableLayoutPanel;
+            Label timelabel, sumleftLabel, sumrightLabel;
+            String[,] l_nimi;
+            string[] mathsymbol = new string[4] { "+", "-", "*", "/" };
+            Text = "Math Quiz";
+            ClientSize = new Size(500, 400);
+            FormBorderStyle = FormBorderStyle.Fixed3D;
+            MaximizeBox = false;
+            Text = "Enter";
+            Label mainlbl = new Label
+            {
+                Name = "TimeTable",
+                AutoSize = false,
+                BorderStyle = BorderStyle.FixedSingle,
+                Size = new Size(200, 30),
+                Font = new Font("Arial",16,FontStyle.Bold)
+
+            };
+            
+            
         }
     }
 }

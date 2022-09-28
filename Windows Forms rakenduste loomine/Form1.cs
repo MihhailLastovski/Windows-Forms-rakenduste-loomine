@@ -16,8 +16,6 @@ namespace Windows_Forms_rakenduste_loomine
         {
             Text = "Picture Viewer";
             ClientSize = new Size(529, 330);
-            AutoScaleDimensions = new SizeF(6F, 13F);
-            AutoScaleMode = AutoScaleMode.Font;
             colorDialog1 = new ColorDialog();
             openFileDialog1 = new OpenFileDialog();
             pictureBox1 = new PictureBox();
@@ -26,10 +24,7 @@ namespace Windows_Forms_rakenduste_loomine
             {
                 ColumnCount = 2,
                 Dock = DockStyle.Fill,
-                Location = new Point(0, 0),
                 RowCount = 2,
-                Size = new Size(529, 330),
-                TabIndex = 0,
             };
             tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15F));
             tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 85F));
@@ -41,9 +36,6 @@ namespace Windows_Forms_rakenduste_loomine
             {
                 BorderStyle = BorderStyle.Fixed3D,
                 Dock = DockStyle.Fill,
-                Location = new Point(3, 3),
-                Size = new Size(523, 291),
-                TabIndex = 0,
                 TabStop = false,
                 SizeMode = PictureBoxSizeMode.CenterImage
             };
@@ -51,9 +43,6 @@ namespace Windows_Forms_rakenduste_loomine
             checkBox1 = new CheckBox
             {
                 AutoSize = true,
-                Location = new Point(3, 300),
-                Size = new Size(60, 17),
-                TabIndex = 1,
                 Text = "Stretch",
                 UseVisualStyleBackColor = true,
             };
@@ -63,51 +52,8 @@ namespace Windows_Forms_rakenduste_loomine
                 AutoSize = true,
                 Dock = DockStyle.Fill,
                 FlowDirection = FlowDirection.RightToLeft,
-                Location = new Point(82, 300),
-                Size = new Size(444, 27),
-                TabIndex = 2
             };
-
-            Button showButton = new Button
-            {
-                AutoSize = true,
-                Location = new Point(353, 3),
-                Name = "showButton",
-                Size = new Size(88, 23),
-                TabIndex = 0,
-                Text = "Show a picture",
-                UseVisualStyleBackColor = true
-            };
-            Button clearButton = new Button
-            {
-                AutoSize = true,
-                Location = new Point(253, 3),
-                Name = "clearButton",
-                Size = new Size(94, 23),
-                TabIndex = 1,
-                Text = "Clear the picture",
-                UseVisualStyleBackColor = true
-            };
-            Button backgroundButton = new Button
-            {
-                AutoSize = true,
-                Location = new Point(110, 3),
-                Name = "backgroundButton",
-                Size = new Size(137, 23),
-                TabIndex = 2,
-                Text = "Set the background color",
-                UseVisualStyleBackColor = true
-            };
-            Button closeButton = new Button
-            {
-                AutoSize = true,
-                Location = new Point(29, 3),
-                Name = "closeButton",
-                Size = new Size(75, 23),
-                TabIndex = 3,
-                Text = "Close",
-                UseVisualStyleBackColor = true
-            };
+           
             openFileDialog1 = new OpenFileDialog
             {
                 Filter = "JPEG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png|BMP Files (*.bmp)|*.bmp|All file" + "s (*.*)|*.*",
@@ -117,11 +63,18 @@ namespace Windows_Forms_rakenduste_loomine
             tableLayoutPanel.Controls.Add(pictureBox1, 0, 0);
             tableLayoutPanel.Controls.Add(checkBox1, 0, 1);
             tableLayoutPanel.Controls.Add(flowLayoutPanel1, 1, 1);
-            Button[] butttons = { showButton, clearButton, backgroundButton, closeButton};
-            foreach (Button item in butttons)
+            string[] textbutton = { "Show a picture", "Clear the picture", "Set the background color", "Close" };
+            for (int i = 0; i < textbutton.Length; i++)
             {
-                item.Click += Tegevus;
-                flowLayoutPanel1.Controls.Add(item);
+                Button zxc = new Button
+                {
+                    AutoSize = true,
+                    UseVisualStyleBackColor = true,
+                    Text = textbutton[i]
+
+                };
+                zxc.Click += Tegevus;
+                flowLayoutPanel1.Controls.Add(zxc);
             }
         }
         private void Tegevus(object sender, EventArgs e) 
@@ -151,35 +104,6 @@ namespace Windows_Forms_rakenduste_loomine
                 }
             }
         }
-        //private void ShowButton_Click(object sender, EventArgs e)
-        //{
-        //    if (openFileDialog1.ShowDialog() == DialogResult.OK)
-        //    {
-        //        pictureBox1.Load(openFileDialog1.FileName);
-        //        Bitmap finalImg = new Bitmap(pictureBox1.Image, pictureBox1.Width, pictureBox1.Height);
-        //        pictureBox1.Image = finalImg;
-        //        pictureBox1.Show();
-        //    }
-        //}
-
-
-        //private void clearButton_Click(object sender, EventArgs e)
-        //{
-        //    pictureBox1.Image = null;
-
-        //}
-
-        //private void backgroundButton_Click(object sender, EventArgs e)
-        //{
-        //    if (colorDialog1.ShowDialog() == DialogResult.OK)
-        //        pictureBox1.BackColor = colorDialog1.Color;
-        //}
-
-        //private void closeButton_Click(object sender, EventArgs e)
-        //{
-        //    Close();
-        //}
-
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked)

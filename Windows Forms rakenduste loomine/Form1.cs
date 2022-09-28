@@ -15,14 +15,14 @@ namespace Windows_Forms_rakenduste_loomine
         public ImageForm()
         {
             Text = "Picture Viewer";
-            ClientSize = new Size(529, 330); 
+            ClientSize = new Size(529, 330);
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
             colorDialog1 = new ColorDialog();
             openFileDialog1 = new OpenFileDialog();
             pictureBox1 = new PictureBox();
             checkBox1 = new CheckBox();
-            TableLayoutPanel tableLayoutPanel = new TableLayoutPanel 
+            TableLayoutPanel tableLayoutPanel = new TableLayoutPanel
             {
                 ColumnCount = 2,
                 Dock = DockStyle.Fill,
@@ -37,17 +37,18 @@ namespace Windows_Forms_rakenduste_loomine
             tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
             tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            pictureBox1 = new PictureBox 
+            pictureBox1 = new PictureBox
             {
                 BorderStyle = BorderStyle.Fixed3D,
                 Dock = DockStyle.Fill,
                 Location = new Point(3, 3),
                 Size = new Size(523, 291),
                 TabIndex = 0,
-                TabStop = false
-        };
+                TabStop = false,
+                SizeMode = PictureBoxSizeMode.CenterImage
+            };
             tableLayoutPanel.SetColumnSpan(pictureBox1, 2);
-            checkBox1 = new CheckBox 
+            checkBox1 = new CheckBox
             {
                 AutoSize = true,
                 Location = new Point(3, 300),
@@ -57,7 +58,7 @@ namespace Windows_Forms_rakenduste_loomine
                 UseVisualStyleBackColor = true,
             };
             checkBox1.CheckedChanged += new EventHandler(this.checkBox1_CheckedChanged);
-            FlowLayoutPanel flowLayoutPanel1 = new FlowLayoutPanel 
+            FlowLayoutPanel flowLayoutPanel1 = new FlowLayoutPanel
             {
                 AutoSize = true,
                 Dock = DockStyle.Fill,
@@ -66,8 +67,8 @@ namespace Windows_Forms_rakenduste_loomine
                 Size = new Size(444, 27),
                 TabIndex = 2
             };
-            
-            Button showButton = new Button 
+
+            Button showButton = new Button
             {
                 AutoSize = true,
                 Location = new Point(353, 3),
@@ -77,8 +78,7 @@ namespace Windows_Forms_rakenduste_loomine
                 Text = "Show a picture",
                 UseVisualStyleBackColor = true
             };
-            showButton.Click += new EventHandler(ShowButton_Click);
-            Button clearButton = new Button 
+            Button clearButton = new Button
             {
                 AutoSize = true,
                 Location = new Point(253, 3),
@@ -88,8 +88,7 @@ namespace Windows_Forms_rakenduste_loomine
                 Text = "Clear the picture",
                 UseVisualStyleBackColor = true
             };
-            clearButton.Click += new System.EventHandler(clearButton_Click);
-            Button backgroundButton = new Button 
+            Button backgroundButton = new Button
             {
                 AutoSize = true,
                 Location = new Point(110, 3),
@@ -99,7 +98,6 @@ namespace Windows_Forms_rakenduste_loomine
                 Text = "Set the background color",
                 UseVisualStyleBackColor = true
             };
-            backgroundButton.Click += new System.EventHandler(backgroundButton_Click);
             Button closeButton = new Button
             {
                 AutoSize = true,
@@ -110,55 +108,77 @@ namespace Windows_Forms_rakenduste_loomine
                 Text = "Close",
                 UseVisualStyleBackColor = true
             };
-            closeButton.Click += new System.EventHandler(closeButton_Click);
-            openFileDialog1 = new OpenFileDialog 
+            openFileDialog1 = new OpenFileDialog
             {
                 Filter = "JPEG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png|BMP Files (*.bmp)|*.bmp|All file" + "s (*.*)|*.*",
                 Title = "Select a picture file"
             };
             Controls.Add(tableLayoutPanel);
-            tableLayoutPanel.ResumeLayout(false);
-            tableLayoutPanel.PerformLayout();
-            ((ISupportInitialize)(pictureBox1)).EndInit();
-            flowLayoutPanel1.ResumeLayout(false);
-            flowLayoutPanel1.PerformLayout();
-            ResumeLayout(false);
             tableLayoutPanel.Controls.Add(pictureBox1, 0, 0);
             tableLayoutPanel.Controls.Add(checkBox1, 0, 1);
             tableLayoutPanel.Controls.Add(flowLayoutPanel1, 1, 1);
-            flowLayoutPanel1.Controls.Add(showButton);
-            flowLayoutPanel1.Controls.Add(clearButton);
-            flowLayoutPanel1.Controls.Add(backgroundButton);
-            flowLayoutPanel1.Controls.Add(closeButton);
-            
-
-
-        }
-        private void ShowButton_Click(object sender, EventArgs e)
-        {
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            Button[] butttons = { showButton, clearButton, backgroundButton, closeButton};
+            foreach (Button item in butttons)
             {
-                pictureBox1.Load(openFileDialog1.FileName);
+                item.Click += Tegevus;
+                flowLayoutPanel1.Controls.Add(item);
             }
         }
-
-
-        private void clearButton_Click(object sender, EventArgs e)
+        private void Tegevus(object sender, EventArgs e) 
         {
-            pictureBox1.Image = null;
-
+            Button nupp_sender = (Button)sender;
+            if(nupp_sender.Text == "Clear the picture")
+            {
+                pictureBox1.Image = null;
+            }
+            else if (nupp_sender.Text == "Close")
+            {
+                Close();
+            }
+            else if(nupp_sender.Text == "Set the background color") 
+            {
+                if (colorDialog1.ShowDialog() == DialogResult.OK)
+                    pictureBox1.BackColor = colorDialog1.Color;
+            }
+            else if(nupp_sender.Text == "Show a picture") 
+            {
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    pictureBox1.Load(openFileDialog1.FileName);
+                    Bitmap finalImg = new Bitmap(pictureBox1.Image, pictureBox1.Width, pictureBox1.Height);
+                    pictureBox1.Image = finalImg;
+                    pictureBox1.Show();
+                }
+            }
         }
+        //private void ShowButton_Click(object sender, EventArgs e)
+        //{
+        //    if (openFileDialog1.ShowDialog() == DialogResult.OK)
+        //    {
+        //        pictureBox1.Load(openFileDialog1.FileName);
+        //        Bitmap finalImg = new Bitmap(pictureBox1.Image, pictureBox1.Width, pictureBox1.Height);
+        //        pictureBox1.Image = finalImg;
+        //        pictureBox1.Show();
+        //    }
+        //}
 
-        private void backgroundButton_Click(object sender, EventArgs e)
-        {
-            if (colorDialog1.ShowDialog() == DialogResult.OK)
-                pictureBox1.BackColor = colorDialog1.Color;
-        }
 
-        private void closeButton_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        //private void clearButton_Click(object sender, EventArgs e)
+        //{
+        //    pictureBox1.Image = null;
+
+        //}
+
+        //private void backgroundButton_Click(object sender, EventArgs e)
+        //{
+        //    if (colorDialog1.ShowDialog() == DialogResult.OK)
+        //        pictureBox1.BackColor = colorDialog1.Color;
+        //}
+
+        //private void closeButton_Click(object sender, EventArgs e)
+        //{
+        //    Close();
+        //}
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {

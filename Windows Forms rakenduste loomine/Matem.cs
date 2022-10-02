@@ -16,7 +16,7 @@ namespace Windows_Forms_rakenduste_loomine
         public Matem()
         {
             TableLayoutPanel tableLayoutPanel;
-            Label timelabel, sumleftLabel, sumrightLabel;
+            Label timelabel;
             Random rnd = new Random();
             string[] mathsymbol = new string[4] { "+", "-", "*", "/" };
             Text = "Math Quiz";

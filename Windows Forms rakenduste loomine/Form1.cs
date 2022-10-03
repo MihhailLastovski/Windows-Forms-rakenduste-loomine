@@ -53,7 +53,6 @@ namespace Windows_Forms_rakenduste_loomine
                 Dock = DockStyle.Fill,
                 FlowDirection = FlowDirection.RightToLeft,
             };
-           
             openFileDialog1 = new OpenFileDialog
             {
                 Filter = "JPEG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png|BMP Files (*.bmp)|*.bmp|All file" + "s (*.*)|*.*",

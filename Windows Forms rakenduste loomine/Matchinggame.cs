@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Windows_Forms_rakenduste_loomine
 {
-    public partial class matching_game : Form
+    public partial class Matching_game : Form
     {
         Random rnd = new Random();
         TableLayoutPanel tableLayoutPanel;
@@ -22,8 +22,9 @@ namespace Windows_Forms_rakenduste_loomine
             "!", "!", "N", "N", ",", ",", "k", "k",
             "b", "b", "v", "v", "w", "w", "z", "z"
         };
-        public matching_game()
+        public Matching_game()
         {
+            CenterToScreen();
             timer1.Tick += timer1_Tick;
             Text = "Matching game";
             ClientSize = new Size(550, 550);

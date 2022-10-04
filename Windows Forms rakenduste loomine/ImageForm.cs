@@ -14,6 +14,7 @@ namespace Windows_Forms_rakenduste_loomine
     {
         public ImageForm()
         {
+            CenterToScreen();
             Text = "Picture Viewer";
             ClientSize = new Size(529, 330);
             colorDialog1 = new ColorDialog();

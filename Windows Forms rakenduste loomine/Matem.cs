@@ -24,7 +24,8 @@ namespace Windows_Forms_rakenduste_loomine
         string[] mathsymbol = new string[4] { "+", "-", "*", "/" };
         string text;
         public Matem()
-        {            
+        {
+            CenterToScreen();
             Text = "Math Quiz";
             ClientSize = new Size(500, 180);
             FormBorderStyle = FormBorderStyle.Fixed3D;

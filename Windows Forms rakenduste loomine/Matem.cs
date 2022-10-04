@@ -37,7 +37,7 @@ namespace Windows_Forms_rakenduste_loomine
                 BorderStyle = BorderStyle.FixedSingle,
                 Size = new Size(80, 30),
                 Location = new System.Drawing.Point(200, 0),
-                Font = new Font("Arial", 16, FontStyle.Bold)
+                Font = new Font("Arial", 10, FontStyle.Bold)
 
             };
             tableLayoutPanel = new TableLayoutPanel
@@ -127,8 +127,7 @@ namespace Windows_Forms_rakenduste_loomine
         private void Button_Click(object sender, EventArgs e)
         {
             timer.Start();
-            timelabel.Text = "Timer: " + tik.ToString();
-            timelabel.Font = new Font("Arial", 12, FontStyle.Bold);
+            timelabel.Font = new Font("Arial", 10, FontStyle.Bold);
             this.Controls.Add(timelabel);
         }
 

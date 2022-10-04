@@ -16,7 +16,7 @@ namespace Windows_Forms_rakenduste_loomine
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Matem());
+            Application.Run(new matching_game());
         }
     }
 }

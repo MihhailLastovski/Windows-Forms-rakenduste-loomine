@@ -26,14 +26,14 @@ namespace Windows_Forms_rakenduste_loomine
         public Matem()
         {
             CenterToScreen();
-            Text = "Math Quiz";
+            Text = "Matemaatika Quiz";
             ClientSize = new Size(500, 180);
             FormBorderStyle = FormBorderStyle.Fixed3D;
             MaximizeBox = false;
             
             timelabel = new Label
             {
-                Name = "Timer",
+                Name = "Taimer",
                 AutoSize = false,
                 BorderStyle = BorderStyle.FixedSingle,
                 Size = new Size(80, 30),
@@ -51,7 +51,7 @@ namespace Windows_Forms_rakenduste_loomine
             };
             Button button = new Button
             {
-                Text = "Start",
+                Text = "Alusta",
                 Location = new System.Drawing.Point(200, 30),
                 Size = new Size(80, 30),
             };
@@ -135,12 +135,12 @@ namespace Windows_Forms_rakenduste_loomine
         private void Timer_Tick(object sender, EventArgs e)
         {
             tik++;
-            timelabel.Text = "Timer: "+tik.ToString();
+            timelabel.Text = "Taimer: " + tik.ToString();
             
             if (check_ans()) 
             {
                 timer.Stop();
-                MessageBox.Show("Very well","Very good");
+                MessageBox.Show("Väga hästi", "Väga hea");
             }
         }
         public bool check_ans() 

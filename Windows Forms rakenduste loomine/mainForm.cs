@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,72 +14,68 @@ using System.Runtime.CompilerServices;
 namespace Windows_Forms_rakenduste_loomine
 {
     public partial class mainForm : Form
-    { 
-        TextBox textBox;
+    {
+        ListBox listbox;
+        ImageForm imageForm = new ImageForm();
+        Matem matem = new Matem();
+        Matching_game matching_Game = new Matching_game();
         public mainForm()
         {
             CenterToScreen();
+            BackColor = Color.AliceBlue;
             ClientSize = new Size(800, 300);
-            Text = "Main Form";
+            Text = "Peavorm";
             Label label = new Label 
             {
                 AutoSize = false,
-                Size = new Size(400, 100),
-                Location = new Point(200, 80),
-                Text = "Write: \n/run(form1/form2/form3) \nand press 'Enter'",
+                Size = new Size(150, 40),
+                Location = new Point(315, 70),
+                Text = "Valige vorm",
                 Font = new Font("Segoe UI", 18, FontStyle.Regular),
                 BorderStyle = BorderStyle.Fixed3D,
                 BackColor = Color.GhostWhite,
             };
-            textBox = new TextBox
+            listbox = new ListBox
             {
                 AutoSize = false,
-                Size = new Size(400, 50),
-                Location = new Point(200, 200),
-                Text = "",
-                Font = new Font("Segoe UI", 21, FontStyle.Regular),
+                Size = new Size(400, 100),
+                Location = new Point(200, 150),
+                Font = new Font("Segoe UI", 16, FontStyle.Regular),
                 BorderStyle = BorderStyle.FixedSingle,
                 BackColor = Color.GhostWhite,
 
             };
-            textBox.KeyDown += TextBox_KeyDown;
-            this.Controls.Add(textBox);
+            for (int i = 1; i < 4; i++)
+            {
+                listbox.Items.Add("Vorm "+i.ToString());
+            }
+            Button button = new Button 
+            {
+                Location = new Point(315, 250),
+                Size = new Size(150, 40),
+                Text = "Vali"
+            };
+            this.Controls.Add(listbox);
             this.Controls.Add(label);
+            this.Controls.Add(button);
+            button.Click += Button_Click;
 
         }
 
-        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        private void Button_Click(object sender, EventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (listbox.Items[listbox.SelectedIndex].ToString() == "Vorm 1")
             {
-                buttonTest_Click(this, new EventArgs());
+                imageForm.ShowDialog();
+            }
+            else if (listbox.Items[listbox.SelectedIndex].ToString() == "Vorm 2")
+            {
+                matem.ShowDialog();
+            }
+            else if (listbox.Items[listbox.SelectedIndex].ToString() == "Vorm 3")
+            {
+                matching_Game.ShowDialog();
             }
         }
-
-        private void buttonTest_Click(object sender, EventArgs e)
-        {
-            ImageForm imgForm = new ImageForm();
-            Matem mathForm = new Matem();
-            Matching_game matchingForm = new Matching_game();
-            if (textBox.Text == "/run(form1)")
-            {    
-               imgForm.ShowDialog();
-
-            }
-            else if(textBox.Text == "/run(form2)")
-            {
-                mathForm.ShowDialog();
-            }
-            else if (textBox.Text == "/run(form3)")
-            {
-                matchingForm.ShowDialog();
-            }
-            else 
-            {
-                MessageBox.Show("You wrote something wrong!", "Error");
-            }
-        }
-
-
     }
 }

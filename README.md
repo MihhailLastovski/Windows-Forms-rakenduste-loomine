@@ -6,3 +6,11 @@
 Для ImageForm также два метода.
 Первый по кнопке меняет картинку на случайную из папки с картинками. 
 Второй добавляет вашу картинку в папку с картинками.
+
+Valmistatud mängu sobitamiseks 2 meetodit.
+Esimene muudab mängu raskust. Lihtne: 12 lahtrit, tavaline: 16 lahtrit, raske: 20 rakku.
+Teine meetod loendab halbade vastete arvu ja käivitab ka taimeri. Pärast mängu võitmist kuvatakse valede matšide arv ja kulunud aeg sekundites. Need andmed kirjutatakse faili.
+
+ImageFormi jaoks on ka kaks meetodit.
+Esimene nupp muudab pildi piltidega kaustast juhuslikuks pildiks.
+Teine lisab teie pildi pildikausta.

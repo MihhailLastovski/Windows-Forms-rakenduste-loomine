@@ -16,6 +16,8 @@
 
 Добавил третий метод для третьей формы, который перезапускает форму в зависимости от ответа пользователя.
 
+Сделал для второй формы 2 метода. Первый заменяет старые примеры на новые. Второй метод выводит правильные ответы на примеры.
+
 ------------Eesti keeles------------
 
 Valmistatud mängu sobitamiseks 2 meetodit.
@@ -31,3 +33,5 @@ Teine lisab teie pildi pildikausta.
 Esimese vormi jaoks on lisatud kolmas meetod, muudab pildi suurust vastavalt määratud parameetritele.
 
 Kolmanda vormi jaoks on lisatud kolmas meetod, mis taaskäivitab vormi sõltuvalt kasutaja vastusest.
+
+Valmistatud teise vormi 2 meetodite jaoks. Esimene asendab vanad näited uutega. Teine meetod kuvab näidete õiged vastused.

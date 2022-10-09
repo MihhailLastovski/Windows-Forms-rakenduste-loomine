@@ -139,7 +139,7 @@ namespace Windows_Forms_rakenduste_loomine
                         }
                     }
 
-                    if (j == 4) //5. veerus luuakse NumericUpDown tüüpi objektid
+                    if (j == 4) //Veerg 5 loob objektid klassist NumericUpDown
                     {
                         numericUpDown[i] = new NumericUpDown
                         {

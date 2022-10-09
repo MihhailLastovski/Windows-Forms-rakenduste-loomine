@@ -21,11 +21,11 @@ namespace Windows_Forms_rakenduste_loomine
         Matching_game matching_Game = new Matching_game();
         public mainForm()
         {
-            CenterToScreen();
+            CenterToScreen(); //Tsentreerib vormi  
             BackColor = Color.AliceBlue;
             ClientSize = new Size(800, 300);
             Text = "Peavorm";
-            Label label = new Label 
+            Label label = new Label //Sildi loomine
             {
                 AutoSize = false,
                 Size = new Size(150, 40),
@@ -35,7 +35,7 @@ namespace Windows_Forms_rakenduste_loomine
                 BorderStyle = BorderStyle.Fixed3D,
                 BackColor = Color.GhostWhite,
             };
-            listbox = new ListBox
+            listbox = new ListBox //ListBox klassi objekti loomine
             {
                 AutoSize = false,
                 Size = new Size(400, 100),
@@ -45,11 +45,11 @@ namespace Windows_Forms_rakenduste_loomine
                 BackColor = Color.GhostWhite,
 
             };
-            for (int i = 1; i < 4; i++)
+            for (int i = 1; i < 4; i++) //Andmete lisamine ListBoxi
             {
                 listbox.Items.Add("Vorm "+i.ToString());
             }
-            Button button = new Button 
+            Button button = new Button //Nupu loomine
             {
                 Location = new Point(315, 250),
                 Size = new Size(150, 40),
@@ -62,7 +62,7 @@ namespace Windows_Forms_rakenduste_loomine
 
         }
 
-        private void Button_Click(object sender, EventArgs e)
+        private void Button_Click(object sender, EventArgs e) //Meetod, mis töötab nupu klõpsamisel ja kontrollib, mis on ListBoxi valitud
         {
             if (listbox.Items[listbox.SelectedIndex].ToString() == "Vorm 1")
             {

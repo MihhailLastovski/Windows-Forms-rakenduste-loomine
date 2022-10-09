@@ -14,6 +14,8 @@
 
 Добавил третий метод для первой формы, меняет размер изображения по заданным параметрам.
 
+Добавил третий метод для третьей формы, который перезапускает форму в зависимости от ответа пользователя.
+
 ------------Eesti keeles------------
 
 Valmistatud mängu sobitamiseks 2 meetodit.
@@ -27,3 +29,5 @@ Teine lisab teie pildi pildikausta.
 ----
 
 Esimese vormi jaoks on lisatud kolmas meetod, muudab pildi suurust vastavalt määratud parameetritele.
+
+Kolmanda vormi jaoks on lisatud kolmas meetod, mis taaskäivitab vormi sõltuvalt kasutaja vastusest.

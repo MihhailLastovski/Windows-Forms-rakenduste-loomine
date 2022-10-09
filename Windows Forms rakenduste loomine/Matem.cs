@@ -19,19 +19,21 @@ namespace Windows_Forms_rakenduste_loomine
         Random rnd = new Random();
         TableLayoutPanel tableLayoutPanel;
         Label timelabel;
+        //Massiivide deklareerimine arvude jaoks näidetest
         int[] intnum = new int[4];
         int[] intnum2 = new int[4];
+        //Massiivide deklareerimine matemaatiliste märkidega
         string[] mathsymbol = new string[4] { "+", "-", "*", "/" };
         string text;
         Button showAns;
         public Matem()
         {
-            CenterToScreen();
+            CenterToScreen(); //Tsentreerib vormi  
             Text = "Matemaatika Quiz";
             ClientSize = new Size(600, 180);
             FormBorderStyle = FormBorderStyle.Fixed3D;
-            MaximizeBox = false;
-            
+            MaximizeBox = false; //Takistab vormi avamist täisekraanil
+
             timelabel = new Label
             {
                 Name = "Taimer",
@@ -42,7 +44,7 @@ namespace Windows_Forms_rakenduste_loomine
                 Font = new Font("Arial", 10, FontStyle.Bold)
 
             };
-            tableLayoutPanel = new TableLayoutPanel
+            tableLayoutPanel = new TableLayoutPanel //Taimeri sildi loomine
             {
                 AutoSize = true,
                 ColumnCount = 6,
@@ -50,6 +52,7 @@ namespace Windows_Forms_rakenduste_loomine
                 Location = new System.Drawing.Point(0, 60),
                 BackColor = System.Drawing.Color.LightGray,
             };
+            //Nuppude loomine
             Button button = new Button
             {
                 Text = "Alusta",
@@ -62,6 +65,7 @@ namespace Windows_Forms_rakenduste_loomine
                 Location = new System.Drawing.Point(300, 25),
                 Size = new Size(80, 35),
             };
+            
             showAns = new Button
             {
                 Text = "Näita\n vastuseid",
@@ -74,7 +78,7 @@ namespace Windows_Forms_rakenduste_loomine
                 Location = new System.Drawing.Point(400, 25),
                 Size = new Size(80, 35),
             };
-            timer.Enabled = true;
+            //Funktsioonide lisamine nuppudele
             checkans.Click += Checkans_Click;
             button.Click += Button_Click;
             showAns.Click += showTrueAns;
@@ -87,24 +91,25 @@ namespace Windows_Forms_rakenduste_loomine
 
         }
 
-        private void NewExamples_Click(object sender, EventArgs e)
+        private void NewExamples_Click(object sender, EventArgs e) //Meetod tühjendab vormi ja täidab selle uute näidetega
         {
+            //Massiivide ja vormi puhastamine
             intnum = new int[4];
             intnum2 = new int[4];
             showAns.Controls.Clear();
             tableLayoutPanel.Controls.Clear();
-            if (showAns.Enabled ==  false)
+            if (showAns.Enabled ==  false) //Kui nupp on keelatud, siis lubage see
             {
                 showAns.Enabled = true;
             }
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++) //Ridade ja veergude loomine
             {
                 tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
                 for (int j = 0; j < 5; j++)
                 {
                     tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
 
-                    if (j == 1)
+                    if (j == 1) //Tekst muutub olenevalt veerust
                     {
                         text = mathsymbol[i];
                     }
@@ -134,7 +139,7 @@ namespace Windows_Forms_rakenduste_loomine
                         }
                     }
 
-                    if (j == 4)
+                    if (j == 4) //5. veerus luuakse NumericUpDown tüüpi objektid
                     {
                         numericUpDown[i] = new NumericUpDown
                         {
@@ -149,7 +154,7 @@ namespace Windows_Forms_rakenduste_loomine
                     }
                     else
                     {
-                        Label l = new Label { Text = text };
+                        Label l = new Label { Text = text }; //Konkreetse tekstiga sildi loomine
                         tableLayoutPanel.Controls.Add(l, j, i);
                     }
 
@@ -159,7 +164,7 @@ namespace Windows_Forms_rakenduste_loomine
             }
         }
 
-        private void Checkans_Click(object sender, EventArgs e)
+        private void Checkans_Click(object sender, EventArgs e) //Sisestatud vastuste kinnitamise meetod
         {
             
             if (intnum[0] + intnum2[0] == numericUpDown[0].Value &&
@@ -172,26 +177,26 @@ namespace Windows_Forms_rakenduste_loomine
             }
             else 
             {
-                Controls.Add(showAns);
+                Controls.Add(showAns); //Lisab veel ühe nupu
             }
             
         }
 
         int tik = 0;
-        private void Button_Click(object sender, EventArgs e)
+        private void Button_Click(object sender, EventArgs e) //Taimer käivitub
         {
             timer.Start();
             timelabel.Font = new Font("Arial", 10, FontStyle.Bold);
             this.Controls.Add(timelabel);
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e) //Taimeri töö
         {
             tik++;
             timelabel.Text = "Taimer: " + tik.ToString();
             
         }
-        private void showTrueAns(object sender, EventArgs e) 
+        private void showTrueAns(object sender, EventArgs e) //Meetod loendab näiteid ja kuvab õiged vastused
         {
             int[] ans = new int[4];
             ans[0] = intnum[0] + intnum2[0];

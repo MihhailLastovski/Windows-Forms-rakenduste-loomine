@@ -23,11 +23,12 @@ namespace Windows_Forms_rakenduste_loomine
         int[] intnum2 = new int[4];
         string[] mathsymbol = new string[4] { "+", "-", "*", "/" };
         string text;
+        Button showAns;
         public Matem()
         {
             CenterToScreen();
             Text = "Matemaatika Quiz";
-            ClientSize = new Size(500, 180);
+            ClientSize = new Size(600, 180);
             FormBorderStyle = FormBorderStyle.Fixed3D;
             MaximizeBox = false;
             
@@ -44,7 +45,7 @@ namespace Windows_Forms_rakenduste_loomine
             tableLayoutPanel = new TableLayoutPanel
             {
                 AutoSize = true,
-                ColumnCount = 5,
+                ColumnCount = 6,
                 RowCount = 4,
                 Location = new System.Drawing.Point(0, 60),
                 BackColor = System.Drawing.Color.LightGray,
@@ -55,10 +56,47 @@ namespace Windows_Forms_rakenduste_loomine
                 Location = new System.Drawing.Point(200, 30),
                 Size = new Size(80, 30),
             };
+            Button checkans = new Button
+            {
+                Text = "Kontrollige\n vastuseid",
+                Location = new System.Drawing.Point(300, 25),
+                Size = new Size(80, 35),
+            };
+            showAns = new Button
+            {
+                Text = "Näita\n vastuseid",
+                Location = new System.Drawing.Point(100, 25),
+                Size = new Size(80, 35),
+            };
+            Button newExamples = new Button
+            {
+                Text = "Uued\n näited",
+                Location = new System.Drawing.Point(400, 25),
+                Size = new Size(80, 35),
+            };
             timer.Enabled = true;
+            checkans.Click += Checkans_Click;
             button.Click += Button_Click;
+            showAns.Click += showTrueAns;
+            newExamples.Click += NewExamples_Click;
+            Controls.Add(newExamples);
             Controls.Add(button);
+            Controls.Add(checkans);
             timer.Tick += Timer_Tick;
+            this.Controls.Add(tableLayoutPanel);
+
+        }
+
+        private void NewExamples_Click(object sender, EventArgs e)
+        {
+            intnum = new int[4];
+            intnum2 = new int[4];
+            showAns.Controls.Clear();
+            tableLayoutPanel.Controls.Clear();
+            if (showAns.Enabled ==  false)
+            {
+                showAns.Enabled = true;
+            }
             for (int i = 0; i < 4; i++)
             {
                 tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -74,7 +112,7 @@ namespace Windows_Forms_rakenduste_loomine
                     {
                         text = "=";
                     }
-                    else if (j==0)
+                    else if (j == 0)
                     {
                         int a = rnd.Next(1, 20);
                         text = a.ToString();
@@ -95,7 +133,7 @@ namespace Windows_Forms_rakenduste_loomine
                             intnum2[i] = a;
                         }
                     }
-               
+
                     if (j == 4)
                     {
                         numericUpDown[i] = new NumericUpDown
@@ -119,11 +157,26 @@ namespace Windows_Forms_rakenduste_loomine
 
                 }
             }
-            this.Controls.Add(tableLayoutPanel);
-
         }
 
-        
+        private void Checkans_Click(object sender, EventArgs e)
+        {
+            
+            if (intnum[0] + intnum2[0] == numericUpDown[0].Value &&
+            intnum[1] - intnum2[1] == numericUpDown[1].Value &&
+            intnum[2] * intnum2[2] == numericUpDown[2].Value &&
+            intnum[3] / intnum2[3] == numericUpDown[3].Value)
+            {
+                timer.Stop();
+                MessageBox.Show("Väga hästi", "Väga hea");
+            }
+            else 
+            {
+                Controls.Add(showAns);
+            }
+            
+        }
+
         int tik = 0;
         private void Button_Click(object sender, EventArgs e)
         {
@@ -137,20 +190,21 @@ namespace Windows_Forms_rakenduste_loomine
             tik++;
             timelabel.Text = "Taimer: " + tik.ToString();
             
-            if (check_ans()) 
-            {
-                timer.Stop();
-                MessageBox.Show("Väga hästi", "Väga hea");
-            }
         }
-        public bool check_ans() 
+        private void showTrueAns(object sender, EventArgs e) 
         {
-                if (intnum[0] + intnum2[0] == numericUpDown[0].Value &&
-                intnum[1] - intnum2[1] == numericUpDown[1].Value &&
-                intnum[2] * intnum2[2] == numericUpDown[2].Value && 
-                intnum[3] / intnum2[3] == numericUpDown[3].Value) { return true; }
-                else { return false; }
-            
+            int[] ans = new int[4];
+            ans[0] = intnum[0] + intnum2[0];
+            ans[1] = intnum[1] - intnum2[1];
+            ans[2] = intnum[2] * intnum2[2];
+            ans[3] = intnum[3] / intnum2[3];
+            for (int i = 0; i < 4; i++)
+            {
+                Label l = new Label { Text = ans[i].ToString() };
+                tableLayoutPanel.Controls.Add(l, 6, i);
+            }
+            showAns.Enabled = false;
         }
+
     }
 }

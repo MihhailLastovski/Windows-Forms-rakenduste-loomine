@@ -14,11 +14,12 @@ namespace Windows_Forms_rakenduste_loomine
     public partial class ImageForm : Form
     {
         Random rnd = new Random();
+        TextBox textBox1, textBox2;
         public ImageForm()
         {
             CenterToScreen(); //Tsentreerib vormi
             Text = "Piltide vaatamine";
-            ClientSize = new Size(900, 550);
+            ClientSize = new Size(1200, 600);
             colorDialog1 = new ColorDialog();
             openFileDialog1 = new OpenFileDialog();
             pictureBox1 = new PictureBox();
@@ -63,11 +64,19 @@ namespace Windows_Forms_rakenduste_loomine
                 Filter = "JPEG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png|BMP Files (*.bmp)|*.bmp|All file" + "s (*.*)|*.*",
                 Title = "Valige pildifail"
             };
+            textBox1 = new TextBox 
+            {
+                Text = "Laius",
+            };
+            textBox2 = new TextBox
+            {
+                Text = "Kõrgus",
+            };
             Controls.Add(tableLayoutPanel);
             tableLayoutPanel.Controls.Add(pictureBox1, 0, 0);
             tableLayoutPanel.Controls.Add(checkBox1, 0, 1);
-            tableLayoutPanel.Controls.Add(flowLayoutPanel1, 1, 1);
-            string[] textbutton = { "Naita pilti", "Tuhjenda pilt", "Maarake taustavarv", "Sulge", "Juhuslik pilt", "Teie fail kaustas" };
+            tableLayoutPanel.Controls.Add(flowLayoutPanel1, 1, 1);       
+            string[] textbutton = { "Naita pilti", "Tuhjenda pilt", "Maarake taustavarv", "Sulge", "Juhuslik pilt", "Teie fail kaustas", "Muudab suurust" };
             for (int i = 0; i < textbutton.Length; i++) //Nuppude loomine
             {
                 Button zxc = new Button
@@ -80,6 +89,9 @@ namespace Windows_Forms_rakenduste_loomine
                 zxc.Click += Tegevus;
                 flowLayoutPanel1.Controls.Add(zxc);
             }
+            flowLayoutPanel1.Controls.Add(textBox1);
+            flowLayoutPanel1.Controls.Add(textBox2);
+            
         }
         private void Tegevus(object sender, EventArgs e)  //Nupu vajutamisel toimub toiming
         {
@@ -130,6 +142,12 @@ namespace Windows_Forms_rakenduste_loomine
                     string destinationFile = @"..\..\..\randompic\" + sourceFile;
                     File.Move(openFileDialog1.FileName, destinationFile);
                 }
+            }
+            else if(nupp_sender.Text == "Muudab suurust") 
+            {
+                Bitmap finalImg = new Bitmap(pictureBox1.Image, int.Parse(textBox1.Text), int.Parse(textBox2.Text)); //Muudab pildi suurust vastavalt etteantud parameetritele
+                pictureBox1.Image = finalImg;
+                pictureBox1.Show();
             }
         }
         private void checkBox1_CheckedChanged(object sender, EventArgs e) //Venitab pilti

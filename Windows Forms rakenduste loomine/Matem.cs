@@ -14,6 +14,7 @@ namespace Windows_Forms_rakenduste_loomine
 {
     public partial class Matem : Form
     {
+        int x, y;
         Timer timer = new Timer { Interval = 1000 };
         NumericUpDown[] numericUpDown = new NumericUpDown[4];
         Random rnd = new Random();
@@ -59,6 +60,8 @@ namespace Windows_Forms_rakenduste_loomine
         }
         public Matem(int x, int y) 
         {
+            this.x = x;
+            this.y = y;
             CenterToScreen(); //Tsentreerib vormi  
             Text = "Matemaatika Quiz";
             ClientSize = new Size(600, 180);
@@ -186,33 +189,36 @@ namespace Windows_Forms_rakenduste_loomine
 
                 }
             }
+
         }
         Matem matem;
-        private Matem difficultChoice(object sender, EventArgs e) 
+        
+        public void difficultChoice(object sender, EventArgs e) 
         {
             this.Controls.Clear();
             Button nupp_sender = (Button)sender;
             if (nupp_sender.Text == "Lihtne")
             {
-                matem = new Matem(20, 2);
-                matem.Show();
+                x = 20;
+                y = 2;
             }
             else if (nupp_sender.Text == "Tavaline")
             {
-                matem = new Matem(30, 3);
-                matem.Show();
+                x = 30;
+                y = 3;
             }
             else if (nupp_sender.Text == "Raske")
             {
-                matem = new Matem(50, 5);
-                matem.Show();
+                x = 50;
+                y = 5;
             }
-            return matem;
+            matem = new Matem(x, y);
+            matem.Show();
         }
-        private void NewExamples_Click(object sender, EventArgs e) //Meetod tühjendab vormi ja täidab selle uute näidetega
+        public void NewExamples_Click(object sender, EventArgs e) //Meetod tühjendab vormi ja täidab selle uute näidetega
         {
-            this.Controls.Clear();
-            matem.Refresh();
+            matem = new Matem(this.x, this.y);
+            matem.Show();
         }
 
         private void Checkans_Click(object sender, EventArgs e) //Sisestatud vastuste kinnitamise meetod

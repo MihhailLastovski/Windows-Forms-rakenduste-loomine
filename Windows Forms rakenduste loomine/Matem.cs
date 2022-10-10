@@ -33,6 +33,35 @@ namespace Windows_Forms_rakenduste_loomine
             ClientSize = new Size(600, 180);
             FormBorderStyle = FormBorderStyle.Fixed3D;
             MaximizeBox = false; //Takistab vormi avamist täisekraanil
+            Label difficult = new Label //Sildi loomine
+            {
+                Text = "Valige raskusaste",
+                Location = new Point(225, 15),
+                Size = new Size(200, 20),
+                Font = new Font("Arial", 10, FontStyle.Bold)
+            };
+            this.Controls.Add(difficult);
+            string[] buttonstext = { "Lihtne", "Tavaline", "Raske" }; //Massiiv nupul oleva tekstiga
+            int x = 170;
+            for (int i = 0; i < buttonstext.Length; i++) //Nuppude loomine
+            {
+
+                Button buttons = new Button
+                {
+                    Text = buttonstext[i],
+                    Location = new Point(x, 50),
+                    Size = new Size(80, 40)
+                };
+                buttons.Click += difficultChoice; //Nuppude lisamise meetod
+                this.Controls.Add(buttons);
+                x += 80;
+            }
+        }
+        public Matem(int x, int y) 
+        {
+            CenterToScreen(); //Tsentreerib vormi  
+            Text = "Matemaatika Quiz";
+            ClientSize = new Size(600, 180);
 
             timelabel = new Label
             {
@@ -42,7 +71,6 @@ namespace Windows_Forms_rakenduste_loomine
                 Size = new Size(80, 30),
                 Location = new System.Drawing.Point(200, 0),
                 Font = new Font("Arial", 10, FontStyle.Bold)
-
             };
             tableLayoutPanel = new TableLayoutPanel //Taimeri sildi loomine
             {
@@ -65,7 +93,7 @@ namespace Windows_Forms_rakenduste_loomine
                 Location = new System.Drawing.Point(300, 25),
                 Size = new Size(80, 35),
             };
-            
+
             showAns = new Button
             {
                 Text = "Näita\n vastuseid",
@@ -89,16 +117,12 @@ namespace Windows_Forms_rakenduste_loomine
             timer.Tick += Timer_Tick;
             this.Controls.Add(tableLayoutPanel);
 
-        }
-
-        private void NewExamples_Click(object sender, EventArgs e) //Meetod tühjendab vormi ja täidab selle uute näidetega
-        {
             //Massiivide ja vormi puhastamine
             intnum = new int[4];
             intnum2 = new int[4];
             showAns.Controls.Clear();
             tableLayoutPanel.Controls.Clear();
-            if (showAns.Enabled ==  false) //Kui nupp on keelatud, siis lubage see
+            if (showAns.Enabled == false) //Kui nupp on keelatud, siis lubage see
             {
                 showAns.Enabled = true;
             }
@@ -119,7 +143,7 @@ namespace Windows_Forms_rakenduste_loomine
                     }
                     else if (j == 0)
                     {
-                        int a = rnd.Next(1, 20);
+                        int a = rnd.Next(1, x);
                         text = a.ToString();
                         intnum[i] = a;
                     }
@@ -127,13 +151,13 @@ namespace Windows_Forms_rakenduste_loomine
                     {
                         if (mathsymbol[i] == "/" || mathsymbol[i] == "*")
                         {
-                            int a = rnd.Next(1, 5);
+                            int a = rnd.Next(1, y);
                             text = a.ToString();
                             intnum2[i] = a;
                         }
                         else
                         {
-                            int a = rnd.Next(1, 20);
+                            int a = rnd.Next(1, x);
                             text = a.ToString();
                             intnum2[i] = a;
                         }
@@ -163,6 +187,33 @@ namespace Windows_Forms_rakenduste_loomine
                 }
             }
         }
+        Matem matem;
+        private Matem difficultChoice(object sender, EventArgs e) 
+        {
+            this.Controls.Clear();
+            Button nupp_sender = (Button)sender;
+            if (nupp_sender.Text == "Lihtne")
+            {
+                matem = new Matem(20, 2);
+                matem.Show();
+            }
+            else if (nupp_sender.Text == "Tavaline")
+            {
+                matem = new Matem(30, 3);
+                matem.Show();
+            }
+            else if (nupp_sender.Text == "Raske")
+            {
+                matem = new Matem(50, 5);
+                matem.Show();
+            }
+            return matem;
+        }
+        private void NewExamples_Click(object sender, EventArgs e) //Meetod tühjendab vormi ja täidab selle uute näidetega
+        {
+            this.Controls.Clear();
+            matem.Refresh();
+        }
 
         private void Checkans_Click(object sender, EventArgs e) //Sisestatud vastuste kinnitamise meetod
         {
@@ -173,7 +224,6 @@ namespace Windows_Forms_rakenduste_loomine
             intnum[3] / intnum2[3] == numericUpDown[3].Value)
             {
                 timer.Stop();
-                MessageBox.Show("Väga hästi", "Väga hea");
             }
             else 
             {
@@ -209,7 +259,7 @@ namespace Windows_Forms_rakenduste_loomine
                 tableLayoutPanel.Controls.Add(l, 6, i);
             }
             showAns.Enabled = false;
-        }
 
+        }
     }
 }

@@ -14,3 +14,4 @@ Vead: Aeg sekundid:
 4 -- 14sek
 3 -- 14sek
 5 -- 16sek
+6 -- 19sek

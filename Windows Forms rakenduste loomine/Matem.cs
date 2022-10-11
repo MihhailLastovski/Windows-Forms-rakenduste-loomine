@@ -26,7 +26,7 @@ namespace Windows_Forms_rakenduste_loomine
         int[] intnum2 = new int[4];
         //Massiivide deklareerimine matemaatiliste märkidega
         string[] mathsymbol = new string[4] { "+", "-", "*", "/" };
-        string text;
+        string text, difficult;
         Button showAns, newExamples, checkans;
         public Matem()
         {
@@ -59,10 +59,11 @@ namespace Windows_Forms_rakenduste_loomine
                 x += 80;
             }
         }
-        public Matem(int x, int y) 
+        public Matem(int x, int y, string difficult) 
         {
             this.x = x;
             this.y = y;
+            this.difficult = difficult;
             CenterToScreen(); //Tsentreerib vormi  
             Text = "Matemaatika Quiz";
             ClientSize = new Size(600, 180);
@@ -190,7 +191,6 @@ namespace Windows_Forms_rakenduste_loomine
             }
 
         }
-        string difficult;
         public void difficultChoice(object sender, EventArgs e) //Meetod muudab näidete keerukust
         {
             this.Controls.Clear();
@@ -214,12 +214,12 @@ namespace Windows_Forms_rakenduste_loomine
                 y = 5;
                 difficult = "Raske";
             }
-            matem = new Matem(x, y);
+            matem = new Matem(x, y, difficult);
             matem.Show();
         }
         public void NewExamples_Click(object sender, EventArgs e) //Meetod loob vormi uute väärtustega uuesti
         {
-            matem = new Matem(this.x, this.y);
+            matem = new Matem(this.x, this.y, this.difficult);
             matem.Show();
         }
 
@@ -239,7 +239,7 @@ namespace Windows_Forms_rakenduste_loomine
             }
         }
 
-        int tik = 4;
+        int tik = 60;
         private void Button_Click(object sender, EventArgs e) //Taimer käivitub
         {
             timer.Start();
@@ -257,16 +257,53 @@ namespace Windows_Forms_rakenduste_loomine
                 timer.Stop();
                 if (this.difficult == "Lihtne")
                 {
-                    switch (score)
+                    if (score < 2)
                     {
-                        case 0:
-                            MessageBox.Show("Bad", "---");
-                            break;
-                        default:
-                            break;
+                        MessageBox.Show("Halb", "Hinne");
+                    }
+                    else if (score >= 2 && score < 5)
+                    {
+                        MessageBox.Show("Keskmine", "Hinne");
+                    }
+                    else if (score >= 5)
+                    {
+                        MessageBox.Show("Hea", "Hinne");
                     }
                 }
-                else { MessageBox.Show($"{this.difficult}", "-----"); }
+                else if (this.difficult == "Tavaline")
+                {
+                    if (score < 2)
+                    {
+                        MessageBox.Show("Halb", "Hinne");
+                    }
+                    if (score >= 2 && score < 4)
+                    {
+                        MessageBox.Show("Keskmine", "Hinne");
+                    }
+                    if (score >= 4)
+                    {
+                        MessageBox.Show("Hea", "Hinne");
+                    }
+                }
+                else if (this.difficult == "Raske") 
+                {
+                    if (score == 0)
+                    {
+                        MessageBox.Show("Halb", "Hinne");
+                    }
+                    else if (score < 2 && score != 0)
+                    {
+                        MessageBox.Show("Pole halb", "Hinne");
+                    }
+                    else if (score >= 2 && score < 4)
+                    {
+                        MessageBox.Show("Üle keskmise", "Hinne");
+                    }
+                    else if (score >= 4)
+                    {
+                        MessageBox.Show("Väga hästi", "Hinne");
+                    }
+                } 
             }          
         }
         private void showTrueAns(object sender, EventArgs e) //Meetod loendab näiteid ja kuvab õiged vastused

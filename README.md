@@ -20,6 +20,8 @@
 
 Второй метод выводит правильные ответы на примеры по кнопке. Кнопка появляется, если пользователь нажал на кнопку "проверить ответы" и есть ошибки.
 
+Третий метод меняет сложность примеров в зависимости от выбора пользователя. Меняется диапозон чисел в примерах.
+
 
 Методы для ImageForm.
 ---------------------
@@ -50,6 +52,8 @@ Matemaatilise vormi meetodid.
 Esimene asendab vanad näited uutega.
 
 Teine meetod kuvab nupul olevate näidete õiged vastused. Nupp ilmub siis, kui kasutaja on vajutanud nupule "kontrolli vastuseid" ja seal on tõrkeid.
+
+Kolmas meetod muudab näidete keerukust sõltuvalt kasutaja valikust. Näidetes olevate numbrite vahemik muutub.
 
 
 ImageFormi meetodid.

@@ -14,7 +14,8 @@ namespace Windows_Forms_rakenduste_loomine
 {
     public partial class Matem : Form
     {
-        int x, y;
+        int x, y, score = 0;
+        Matem matem;
         Timer timer = new Timer { Interval = 1000 };
         NumericUpDown[] numericUpDown = new NumericUpDown[4];
         Random rnd = new Random();
@@ -26,7 +27,7 @@ namespace Windows_Forms_rakenduste_loomine
         //Massiivide deklareerimine matemaatiliste märkidega
         string[] mathsymbol = new string[4] { "+", "-", "*", "/" };
         string text;
-        Button showAns;
+        Button showAns, newExamples, checkans;
         public Matem()
         {
             CenterToScreen(); //Tsentreerib vormi  
@@ -90,7 +91,7 @@ namespace Windows_Forms_rakenduste_loomine
                 Location = new System.Drawing.Point(200, 30),
                 Size = new Size(80, 30),
             };
-            Button checkans = new Button
+            checkans = new Button
             {
                 Text = "Kontrollige\n vastuseid",
                 Location = new System.Drawing.Point(300, 25),
@@ -103,7 +104,7 @@ namespace Windows_Forms_rakenduste_loomine
                 Location = new System.Drawing.Point(100, 25),
                 Size = new Size(80, 35),
             };
-            Button newExamples = new Button
+            newExamples = new Button
             {
                 Text = "Uued\n näited",
                 Location = new System.Drawing.Point(400, 25),
@@ -114,9 +115,7 @@ namespace Windows_Forms_rakenduste_loomine
             button.Click += Button_Click;
             showAns.Click += showTrueAns;
             newExamples.Click += NewExamples_Click;
-            Controls.Add(newExamples);
             Controls.Add(button);
-            Controls.Add(checkans);
             timer.Tick += Timer_Tick;
             this.Controls.Add(tableLayoutPanel);
 
@@ -191,9 +190,8 @@ namespace Windows_Forms_rakenduste_loomine
             }
 
         }
-        Matem matem;
-        
-        public void difficultChoice(object sender, EventArgs e) 
+        string difficult;
+        public void difficultChoice(object sender, EventArgs e) //Meetod muudab näidete keerukust
         {
             this.Controls.Clear();
             Button nupp_sender = (Button)sender;
@@ -201,21 +199,25 @@ namespace Windows_Forms_rakenduste_loomine
             {
                 x = 20;
                 y = 2;
+                difficult = "Lihtne";
+                
             }
             else if (nupp_sender.Text == "Tavaline")
             {
                 x = 30;
                 y = 3;
+                difficult = "Tavaline";
             }
             else if (nupp_sender.Text == "Raske")
             {
                 x = 50;
                 y = 5;
+                difficult = "Raske";
             }
             matem = new Matem(x, y);
             matem.Show();
         }
-        public void NewExamples_Click(object sender, EventArgs e) //Meetod tühjendab vormi ja täidab selle uute näidetega
+        public void NewExamples_Click(object sender, EventArgs e) //Meetod loob vormi uute väärtustega uuesti
         {
             matem = new Matem(this.x, this.y);
             matem.Show();
@@ -223,34 +225,49 @@ namespace Windows_Forms_rakenduste_loomine
 
         private void Checkans_Click(object sender, EventArgs e) //Sisestatud vastuste kinnitamise meetod
         {
-            
             if (intnum[0] + intnum2[0] == numericUpDown[0].Value &&
             intnum[1] - intnum2[1] == numericUpDown[1].Value &&
             intnum[2] * intnum2[2] == numericUpDown[2].Value &&
             intnum[3] / intnum2[3] == numericUpDown[3].Value)
             {
-                timer.Stop();
+                Controls.Add(newExamples);
+                score += 1;
             }
             else 
             {
                 Controls.Add(showAns); //Lisab veel ühe nupu
             }
-            
         }
 
-        int tik = 0;
+        int tik = 4;
         private void Button_Click(object sender, EventArgs e) //Taimer käivitub
         {
             timer.Start();
             timelabel.Font = new Font("Arial", 10, FontStyle.Bold);
             this.Controls.Add(timelabel);
+            Controls.Add(checkans);
         }
 
-        private void Timer_Tick(object sender, EventArgs e) //Taimeri töö
+        public void Timer_Tick(object sender, EventArgs e) //Taimeri töö
         {
-            tik++;
+            tik--;
             timelabel.Text = "Taimer: " + tik.ToString();
-            
+            if (tik == 0)
+            {
+                timer.Stop();
+                if (this.difficult == "Lihtne")
+                {
+                    switch (score)
+                    {
+                        case 0:
+                            MessageBox.Show("Bad", "---");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else { MessageBox.Show($"{this.difficult}", "-----"); }
+            }          
         }
         private void showTrueAns(object sender, EventArgs e) //Meetod loendab näiteid ja kuvab õiged vastused
         {

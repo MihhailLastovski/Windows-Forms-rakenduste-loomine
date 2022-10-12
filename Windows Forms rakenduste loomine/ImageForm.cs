@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -76,7 +77,7 @@ namespace Windows_Forms_rakenduste_loomine
             tableLayoutPanel.Controls.Add(pictureBox1, 0, 0);
             tableLayoutPanel.Controls.Add(checkBox1, 0, 1);
             tableLayoutPanel.Controls.Add(flowLayoutPanel1, 1, 1);       
-            string[] textbutton = { "Naita pilti", "Tuhjenda pilt", "Maarake taustavarv", "Sulge", "Juhuslik pilt", "Teie fail kaustas", "Muudab suurust" };
+            string[] textbutton = { "Naita pilti", "Tuhjenda pilt", "Maarake taustavarv", "Sulge", "Juhuslik pilt", "Teie fail kaustas", "Pildi värvi muutmine", "Muudab suurust" };
             for (int i = 0; i < textbutton.Length; i++) //Nuppude loomine
             {
                 Button zxc = new Button
@@ -102,7 +103,15 @@ namespace Windows_Forms_rakenduste_loomine
             List<string> files = new List<string>();
             files.AddRange(files_png);
             files.AddRange(files_jpg);
-            Button nupp_sender = (Button)sender;     
+            Button nupp_sender = (Button)sender;
+            var cm = new ColorMatrix(new float[][]
+            {
+              new float[] {1, 0, 0, 0, 0},
+              new float[] {0, 1, 1, 0, 0},
+              new float[] {0, 0, 1, 0, 0},
+              new float[] {0, 0, 0, 1, 0},
+              new float[] {0, 0, 0.5f, 0, 1}
+            });
             if (nupp_sender.Text == "Tuhjenda pilt")
             {
                 pictureBox1.Image = null;
@@ -146,6 +155,21 @@ namespace Windows_Forms_rakenduste_loomine
             else if(nupp_sender.Text == "Muudab suurust") 
             {
                 Bitmap finalImg = new Bitmap(pictureBox1.Image, int.Parse(textBox1.Text), int.Parse(textBox2.Text)); //Muudab pildi suurust vastavalt etteantud parameetritele
+                pictureBox1.Image = finalImg;
+                pictureBox1.Show();
+            }
+            else if(nupp_sender.Text == "Pildi värvi muutmine") //Muudab pildi värvipaleti rohkem siniseks/lillaks
+            {
+                var img = Image.FromFile(pictureBox1.ImageLocation);
+                var ia = new ImageAttributes();
+                ia.SetColorMatrix(cm);
+
+                var bmp = new Bitmap(img.Width, img.Height);
+                var gfx = Graphics.FromImage(bmp);
+                var rect = new Rectangle(0, 0, img.Width, img.Height);
+
+                gfx.DrawImage(img, rect, 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, ia);
+                Bitmap finalImg = new Bitmap(bmp, pictureBox1.Width, pictureBox1.Height);
                 pictureBox1.Image = finalImg;
                 pictureBox1.Show();
             }

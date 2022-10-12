@@ -1,6 +1,6 @@
 # Windows-Forms-rakenduste-loomine
 
-
+----------------------------------
 ------------На русском------------
 ----------------------------------
 
@@ -22,6 +22,12 @@
 
 Третий метод меняет сложность примеров в зависимости от выбора пользователя. Меняется диапозон чисел в примерах.
 
+Четвертый метод выставляет оценку, которая зависит от сложности и количества отвеченных тестов.
+
+Пятый записывает в файл: количества отвеченных тестов, сложность, оценку.
+
+Также много чего было переработанно.
+
 
 Методы для ImageForm.
 ---------------------
@@ -33,7 +39,7 @@
 
 Четвертый метод автоматический растягивает изображение по размеру форму.
 
-
+------------------------------------
 ------------Eesti keeles------------
 ------------------------------------
 
@@ -54,6 +60,12 @@ Esimene asendab vanad näited uutega.
 Teine meetod kuvab nupul olevate näidete õiged vastused. Nupp ilmub siis, kui kasutaja on vajutanud nupule "kontrolli vastuseid" ja seal on tõrkeid.
 
 Kolmas meetod muudab näidete keerukust sõltuvalt kasutaja valikust. Näidetes olevate numbrite vahemik muutub.
+
+Neljas meetod annab hinde, mis sõltub vastatud testide keerukusest ja arvust.
+
+Viies kirjutab faili: vastatud testide arv, keerukus, punktisumma.
+
+Samuti on palju asju ümber tehtud.
 
 
 ImageFormi meetodid.

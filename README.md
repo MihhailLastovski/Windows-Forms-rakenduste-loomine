@@ -13,6 +13,8 @@
 
 Третий метод перезапускает форму или выходит из нее в зависимости от ответа пользователя.
 
+Четвертый метод проигрывает звук после завершения игры.
+
 
 Методы для Matemaatiline vorm.
 ------------------------------
@@ -53,6 +55,8 @@ Esimene muudab mängu raskust. Lihtne: 12 lahtrit, tavaline: 16 lahtrit, raske: 
 Teine meetod loendab halbade vastete arvu ja käivitab ka taimeri. Pärast mängu võitmist kuvatakse valede matšide arv ja kulunud aeg sekundites. Need andmed kirjutatakse faili.
 
 Kolmas meetod taaskäivitab või väljub vormist kasutaja vastuse põhjal.
+
+Neljas meetod esitab heli pärast mängu lõppu.
 
 
 Matemaatilise vormi meetodid.

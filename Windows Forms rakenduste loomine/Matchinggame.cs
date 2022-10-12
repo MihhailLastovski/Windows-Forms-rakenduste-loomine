@@ -185,7 +185,7 @@ namespace Windows_Forms_rakenduste_loomine
                 to_file.Write($"Vead: {score.ToString()} -- Aeg sekundid: {tik.ToString()}sek\n");
                 to_file.Close();
             }
-            void FromFile() 
+            void FromFile() //Meetod loob vormi, milles loob sildid ja kuvab neis olevast failist teavet
             {
                 int y_ = 20;
                 Form form = new Form();

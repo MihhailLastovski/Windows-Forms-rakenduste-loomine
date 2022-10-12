@@ -156,9 +156,9 @@ namespace Windows_Forms_rakenduste_loomine
                 timer.Stop(); //Peatab taimeri
                 FailedScoreTofile(score); //Käivitab funktsiooni
                 PlaySound();
-                FromFile();
                 System.Threading.Thread.Sleep(1000);
                 MessageBox.Show("Sa sobitasid kõik ikoonid!", "Palju õnne"); //Kuvab teate mängu lõppemise kohta
+                FromFile();
                 restarGame(); //Peatab taimeri
             }
             void restarGame() //Taaskäivitab vormi sõltuvalt vastusest
@@ -182,23 +182,26 @@ namespace Windows_Forms_rakenduste_loomine
             {
                 StreamWriter to_file = new StreamWriter(@"..\..\..\Score.txt", true);
 
-                to_file.Write(score.ToString() + ";" + tik.ToString() + "sek" + "\n");
+                to_file.Write($"Vead: {score.ToString()} -- Aeg sekundid: {tik.ToString()}sek\n");
                 to_file.Close();
             }
             void FromFile() 
             {
                 int y_ = 20;
                 Form form = new Form();
-                form.ClientSize = new Size(500, 500);
+                form.Text = "Punktide tabel";
+                MaximizeBox = false;
+                form.ClientSize = new Size(400, 1200);
                 string[] readText = File.ReadAllLines(@"..\..\..\Score.txt");
-                for (int i = 1; i < readText.Length; i++)
+                for (int i = 0; i < readText.Length; i++)
                 {
                     Label lbl = new Label
                     {
                         AutoSize = true,
                         Text = readText[i],
-                        BackColor = Color.Green,
+                        BackColor = Color.Azure,
                         Location = new Point(20,y_),
+                        Font = new Font("Arial", 18, FontStyle.Bold),
                     };
                     form.Controls.Add(lbl);
                     y_ += 50;

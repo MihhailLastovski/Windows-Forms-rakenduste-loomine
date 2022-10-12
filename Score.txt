@@ -1,3 +1,4 @@
-3;13sek
-9;24sek
-6;17sek
+Vead: 8 -- Aeg sekundid: 20sek
+Vead: 7 -- Aeg sekundid: 19sek
+Vead: 6 -- Aeg sekundid: 17sek
+Vead: 5 -- Aeg sekundid: 16sek

@@ -15,6 +15,8 @@
 
 Четвертый метод проигрывает звук после завершения игры.
 
+Пятый метод создает форму, в которой создает label и в них выводит инфомацию из файла.
+
 
 Методы для Matemaatiline vorm.
 ------------------------------
@@ -57,6 +59,8 @@ Teine meetod loendab halbade vastete arvu ja käivitab ka taimeri. Pärast mäng
 Kolmas meetod taaskäivitab või väljub vormist kasutaja vastuse põhjal.
 
 Neljas meetod esitab heli pärast mängu lõppu.
+
+Viies meetod loob vormi, milles loob sildid ja kuvab neis olevast failist teavet.
 
 
 Matemaatilise vormi meetodid.

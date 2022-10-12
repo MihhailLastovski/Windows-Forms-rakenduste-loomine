@@ -1,17 +1,3 @@
-Vead: Aeg sekundid:
-7 -- 19sek
-6 -- 17sek
-16 -- 38sek
-8 -- 46sek
-9 -- 26sek
-8 -- 19sek
-5 -- 18sek
-4 -- 14sek
-8 -- 20sek
-5 -- 15sek
-6 -- 16sek
-3 -- 12sek
-4 -- 14sek
-3 -- 14sek
-5 -- 16sek
-6 -- 19sek
+3;13sek
+9;24sek
+6;17sek

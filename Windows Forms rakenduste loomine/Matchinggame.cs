@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Media;
 using System.Windows.Forms;
 
 namespace Windows_Forms_rakenduste_loomine
@@ -33,28 +28,28 @@ namespace Windows_Forms_rakenduste_loomine
             difficult = new Label //Sildi loomine
             {
                 Text = "Valige raskusaste",
-                Location = new Point(110,100),
-                Size = new Size(400,100),
+                Location = new Point(110, 100),
+                Size = new Size(400, 100),
                 Font = new Font("Arial", 28, FontStyle.Bold)
             };
             this.Controls.Add(difficult);
-            string[] buttonstext = { "Lihtne", "Tavaline", "Raske" }; //Massiiv nupul oleva tekstiga
+            string[] buttonstext = { "Lihtne", "Tavaline", "Raske"}; //Massiiv nupul oleva tekstiga
             int y = 200;
             for (int i = 0; i < buttonstext.Length; i++) //Nuppude loomine
             {
-                
-                Button button = new Button 
+
+                Button button = new Button
                 {
-                    Text = buttonstext[i], 
-                    Location = new Point(210,y),
-                    Size = new Size(100,80)
+                    Text = buttonstext[i],
+                    Location = new Point(210, y),
+                    Size = new Size(100, 80)
                 };
                 button.Click += Button_Click; //Nuppude lisamise meetod
                 this.Controls.Add(button);
                 y += 100;
             }
-            
-            
+
+
         }
         public Matching_game(int x, int y, List<string> icons, TableLayoutPanel tableLayoutPanel) //Mänguklassi loomine
         {
@@ -84,7 +79,7 @@ namespace Windows_Forms_rakenduste_loomine
             }
             foreach (Control control in tableLayoutPanel.Controls) //Sirvib läbi kõik tabelisLayoutPanel olevad komponendid
             {
-                Label iconLabel = control as Label; 
+                Label iconLabel = control as Label;
                 if (iconLabel != null) //Kui silt on olemas, siis
                 {
                     int randomNumber = rnd.Next(icons.Count); //Genereerib juhusliku arvu
@@ -94,7 +89,6 @@ namespace Windows_Forms_rakenduste_loomine
                 iconLabel.ForeColor = iconLabel.BackColor;
                 iconLabel.Click += label1_Click;
             }
-
             void Timer_Tick(object sender, EventArgs e)
             {
                 tik++;
@@ -161,21 +155,25 @@ namespace Windows_Forms_rakenduste_loomine
                 }
                 timer.Stop(); //Peatab taimeri
                 FailedScoreTofile(score); //Käivitab funktsiooni
+                PlaySound();
+                FromFile();
+                System.Threading.Thread.Sleep(1000);
                 MessageBox.Show("Sa sobitasid kõik ikoonid!", "Palju õnne"); //Kuvab teate mängu lõppemise kohta
                 restarGame(); //Peatab taimeri
             }
             void restarGame() //Taaskäivitab vormi sõltuvalt vastusest
             {
+                this.Controls.Clear();
                 if (MessageBox.Show($"Vead: {score.ToString()}\nAeg sekundid: {tik.ToString()}!\nKas soovite uuesti mängida?", "Tulemus!", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-
+                    this.Controls.Clear();
                     Application.Restart();
                     Environment.Exit(0);
                 }
-                else 
+                else
                 {
+                    this.Controls.Clear();
                     Application.Exit();
-                    
                 }
 
             }
@@ -184,9 +182,36 @@ namespace Windows_Forms_rakenduste_loomine
             {
                 StreamWriter to_file = new StreamWriter(@"..\..\..\Score.txt", true);
 
-                to_file.Write(score.ToString() + " -- " + tik.ToString() + "sek" + "\n");
+                to_file.Write(score.ToString() + ";" + tik.ToString() + "sek" + "\n");
                 to_file.Close();
             }
+            void FromFile() 
+            {
+                int y_ = 20;
+                Form form = new Form();
+                form.ClientSize = new Size(500, 500);
+                string[] readText = File.ReadAllLines(@"..\..\..\Score.txt");
+                for (int i = 1; i < readText.Length; i++)
+                {
+                    Label lbl = new Label
+                    {
+                        AutoSize = true,
+                        Text = readText[i],
+                        BackColor = Color.Green,
+                        Location = new Point(20,y_),
+                    };
+                    form.Controls.Add(lbl);
+                    y_ += 50;
+                }
+                form.ShowDialog();
+            }
+
+            void PlaySound() //Meetod mängib muusikat
+            {
+                SoundPlayer player = new SoundPlayer(@"..\..\..\effect\win.wav");
+                player.Play();
+            }
+
         }
         //Ikoonidega loendid
         List<string> icons = new List<string>()
@@ -218,22 +243,22 @@ namespace Windows_Forms_rakenduste_loomine
             //Kontrollib, millist nuppu vajutati
             if (nupp_sender.Text == "Lihtne")
             {
-                
-                new Matching_game(4,3, icons, tableLayoutPanel);
-                
+
+                new Matching_game(4, 3, icons, tableLayoutPanel);
+
             }
-            else if(nupp_sender.Text == "Tavaline") 
+            else if (nupp_sender.Text == "Tavaline")
             {
-               
+
                 new Matching_game(4, 4, icons_2, tableLayoutPanel);
-     
+
             }
-            else if (nupp_sender.Text == "Raske") 
+            else if (nupp_sender.Text == "Raske")
             {
-                
+
                 new Matching_game(5, 4, icons_3, tableLayoutPanel);
-            }        
+            }
         }
-        
     }
 }
+      

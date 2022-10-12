@@ -39,6 +39,8 @@
 
 Четвертый метод автоматический растягивает изображение по размеру форму.
 
+Пятый метод меняет палитру цвета картинку в более синию/фиолетовую.
+
 ------------------------------------
 ------------Eesti keeles------------
 ------------------------------------
@@ -77,3 +79,5 @@ Teine lisab teie pildi pildikausta.
 Kolmas meetod muudab pildi suurust vastavalt etteantud parameetritele.
 
 Neljas meetod venitab kujutise automaatselt kujuga sobivaks.
+
+Viies meetod muudab pildi värvipaleti rohkem siniseks/lillaks.

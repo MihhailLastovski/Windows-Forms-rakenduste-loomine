@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
@@ -15,7 +16,6 @@ namespace Windows_Forms_rakenduste_loomine
     public partial class Matem : Form
     {
         int x, y, score = 0;
-        Matem matem;
         Timer timer = new Timer { Interval = 1000 };
         NumericUpDown[] numericUpDown = new NumericUpDown[4];
         Random rnd = new Random();
@@ -26,7 +26,7 @@ namespace Windows_Forms_rakenduste_loomine
         int[] intnum2 = new int[4];
         //Massiivide deklareerimine matemaatiliste märkidega
         string[] mathsymbol = new string[4] { "+", "-", "*", "/" };
-        string text, difficult;
+        string text, difficult, mark;
         Button showAns, newExamples, checkans;
         public Matem()
         {
@@ -59,11 +59,8 @@ namespace Windows_Forms_rakenduste_loomine
                 x += 80;
             }
         }
-        public Matem(int x, int y, string difficult) 
+        public void MatemCreate(int x, int y, string difficult) 
         {
-            this.x = x;
-            this.y = y;
-            this.difficult = difficult;
             CenterToScreen(); //Tsentreerib vormi  
             Text = "Matemaatika Quiz";
             ClientSize = new Size(600, 180);
@@ -125,6 +122,11 @@ namespace Windows_Forms_rakenduste_loomine
             intnum2 = new int[4];
             showAns.Controls.Clear();
             tableLayoutPanel.Controls.Clear();
+            createExamples(x, y);
+
+        }
+        public void createExamples(int x, int y) //Meetod loob näiteid
+        {
             if (showAns.Enabled == false) //Kui nupp on keelatud, siis lubage see
             {
                 showAns.Enabled = true;
@@ -189,7 +191,6 @@ namespace Windows_Forms_rakenduste_loomine
 
                 }
             }
-
         }
         public void difficultChoice(object sender, EventArgs e) //Meetod muudab näidete keerukust
         {
@@ -197,30 +198,31 @@ namespace Windows_Forms_rakenduste_loomine
             Button nupp_sender = (Button)sender;
             if (nupp_sender.Text == "Lihtne")
             {
-                x = 20;
+                x = 10;
                 y = 2;
                 difficult = "Lihtne";
                 
             }
             else if (nupp_sender.Text == "Tavaline")
             {
-                x = 30;
-                y = 3;
+                x = 20;
+                y = 2;
                 difficult = "Tavaline";
             }
             else if (nupp_sender.Text == "Raske")
             {
-                x = 50;
-                y = 5;
+                x = 30;
+                y = 3;
                 difficult = "Raske";
             }
-            matem = new Matem(x, y, difficult);
-            matem.Show();
+            MatemCreate(x, y, difficult);
         }
-        public void NewExamples_Click(object sender, EventArgs e) //Meetod loob vormi uute väärtustega uuesti
+        public void NewExamples_Click(object sender, EventArgs e) //Meetod värskendab vormi väärtusi
         {
-            matem = new Matem(this.x, this.y, this.difficult);
-            matem.Show();
+            tableLayoutPanel.Controls.Clear();
+            createExamples(x, y);
+            checkans.Enabled = true;
+            newExamples.Enabled = false;
         }
 
         private void Checkans_Click(object sender, EventArgs e) //Sisestatud vastuste kinnitamise meetod
@@ -232,6 +234,8 @@ namespace Windows_Forms_rakenduste_loomine
             {
                 Controls.Add(newExamples);
                 score += 1;
+                checkans.Enabled = false;
+                newExamples.Enabled = true;
             }
             else 
             {
@@ -239,7 +243,7 @@ namespace Windows_Forms_rakenduste_loomine
             }
         }
 
-        int tik = 60;
+        int tik = 90;
         private void Button_Click(object sender, EventArgs e) //Taimer käivitub
         {
             timer.Start();
@@ -248,7 +252,7 @@ namespace Windows_Forms_rakenduste_loomine
             Controls.Add(checkans);
         }
 
-        public void Timer_Tick(object sender, EventArgs e) //Taimeri töö
+        public void Timer_Tick(object sender, EventArgs e) //Taimer ja hindamis meetod
         {
             tik--;
             timelabel.Text = "Taimer: " + tik.ToString();
@@ -260,14 +264,17 @@ namespace Windows_Forms_rakenduste_loomine
                     if (score < 2)
                     {
                         MessageBox.Show("Halb", "Hinne");
+                        mark = "Halb";
                     }
                     else if (score >= 2 && score < 5)
                     {
                         MessageBox.Show("Keskmine", "Hinne");
+                        mark = "Keskmine";
                     }
                     else if (score >= 5)
                     {
                         MessageBox.Show("Hea", "Hinne");
+                        mark = "Hea";
                     }
                 }
                 else if (this.difficult == "Tavaline")
@@ -275,14 +282,17 @@ namespace Windows_Forms_rakenduste_loomine
                     if (score < 2)
                     {
                         MessageBox.Show("Halb", "Hinne");
+                        mark = "Halb";
                     }
                     if (score >= 2 && score < 4)
                     {
                         MessageBox.Show("Keskmine", "Hinne");
+                        mark = "Keskmine";
                     }
                     if (score >= 4)
                     {
                         MessageBox.Show("Hea", "Hinne");
+                        mark = "Hea";
                     }
                 }
                 else if (this.difficult == "Raske") 
@@ -290,20 +300,25 @@ namespace Windows_Forms_rakenduste_loomine
                     if (score == 0)
                     {
                         MessageBox.Show("Halb", "Hinne");
+                        mark = "Halb";
                     }
                     else if (score < 2 && score != 0)
                     {
                         MessageBox.Show("Pole halb", "Hinne");
+                        mark = "Pole halb";
                     }
                     else if (score >= 2 && score < 4)
                     {
                         MessageBox.Show("Üle keskmise", "Hinne");
+                        mark = "Üle keskmise";
                     }
                     else if (score >= 4)
                     {
                         MessageBox.Show("Väga hästi", "Hinne");
+                        mark = "Väga hästi";
                     }
-                } 
+                }
+                MathScoreTofile(mark, score, this.difficult); //Meetodi kõne
             }          
         }
         private void showTrueAns(object sender, EventArgs e) //Meetod loendab näiteid ja kuvab õiged vastused
@@ -320,6 +335,12 @@ namespace Windows_Forms_rakenduste_loomine
             }
             showAns.Enabled = false;
 
+        }
+        private void MathScoreTofile(string mark, int score, string difficult) //Meetod kirjutab faili vastatud testide arvu, raskusastme ja hinde
+        {
+            StreamWriter to_file = new StreamWriter(@"..\..\..\MathScore.txt", true);
+            to_file.Write($"Vastatud testide arv -> {score.ToString()}" + " -- " + $"Keerukus -> {difficult}" + " -- " + $"Hinne -> {mark}" + "\n");
+            to_file.Close();
         }
     }
 }

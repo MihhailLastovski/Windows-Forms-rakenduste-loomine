@@ -52,7 +52,7 @@
 
 Mängu sobitamise meetodid.
 ------------------------
-Esimene muudab mängu raskust. Lihtne: 12 lahtrit, tavaline: 16 lahtrit, raske: 20 rakku.
+Esimene muudab mängu raskust. Lihtne: 12 rakud, tavaline: 16 rakud, raske: 20 rakud.
 
 Teine meetod loendab halbade vastete arvu ja käivitab ka taimeri. Pärast mängu võitmist kuvatakse valede matšide arv ja kulunud aeg sekundites. Need andmed kirjutatakse faili.
 

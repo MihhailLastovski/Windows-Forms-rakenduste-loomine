@@ -56,6 +56,7 @@ namespace Windows_Forms_rakenduste_loomine
             //Taimerite meetodi lisamine
             timer.Tick += Timer_Tick;
             timer1.Tick += timer1_Tick;
+            tableLayoutPanel.Hide();
             for (int i = 0; i < x; i++) //Sildi loomine
             {
                 tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
@@ -89,6 +90,7 @@ namespace Windows_Forms_rakenduste_loomine
                 iconLabel.ForeColor = iconLabel.BackColor;
                 iconLabel.Click += label1_Click;
             }
+            tableLayoutPanel.Show();
             void Timer_Tick(object sender, EventArgs e)
             {
                 tik++;
